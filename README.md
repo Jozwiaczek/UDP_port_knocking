@@ -57,5 +57,5 @@ W następstwie autoryzacji klient wysyła wiadomość do serwera, a ten zwraca j
 |`hashMessage`            |Odpowiedź do klienta            |
 
 #
-> Autor: **Jakub Jóźwiak s16641**
+> Autor: **Jakub Jóźwiak**
 
