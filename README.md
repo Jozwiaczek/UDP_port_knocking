@@ -1,7 +1,6 @@
-# Zadanie programistyczne nr 2: UDP port knocking
+# UDP port knocking
 
-Poniżej przedstawiona jest dokumentacja drugiego zadania z SKJ: UDP port knocking. 
-**Zadanie zostało w pełni zrealizowane**.
+Para aplikacji - serwer i klient realizujące autoryzację metodą "UDP port knocking".
 
 ## Działanie aplikacji
 
