@@ -7,7 +7,7 @@ Para aplikacji - serwer i klient realizujące autoryzację metodą "UDP port kno
  1. < Server > Nasłuchiwanie na zadanych portach UDP na pakiety od wielu klientów.
  2. < Klient > Otwarcie portu UDP, z którego następuje wysłanie serii pakietów na zadane porty.
  3. < Klient > Oczekiwanie na komunikat zwrotny zawierający numer portu TCP do nawiązania połączenia.
- 4. < Server > Wykrycie odpowiedniej sekwencji pakietów UDP poprzez autoryzacje klienta. Autoryzacja wielu klientów w tym samym czasie.
+ 4. < Server > Wykrycie odpowiedniej sekwencji pakietów UDP, poprzez autoryzacje klienta. Autoryzacja wielu klientów w tym samym czasie.
  5. < Server > Jeśli sekwencja pakietów UDP jest niepoprawna, klient nie uzyskuje odpowiedzi oraz po 10 sekundach klient kończy pracę z komunikatem błędu.
  6. <  Klient > Po wykonaniu komunikacji z serwerem, klient rozłącza się i kończy pracę.
 
@@ -16,17 +16,17 @@ Para aplikacji - serwer i klient realizujące autoryzację metodą "UDP port kno
 >- Server należy uruchomić podając w argumentach numery portów UDP do nasłuchiwania pakietów od klientów.
 >- Klienta należy uruchomić podając w argumentach na początku adres serwera oraz w następnych numery portów, na które ma "pukać".
 ## Protokół serwera
-Początkowo serwer na podstawie podanych w argumentach portów UDP uruchamia wątki dla każdego z nich. Każdy wątek nasłuchuje wspomnianego "knockingu". Jeżeli nastąpi autoryzacja klienta to poprzez UDP serwer wysyła wolny port TCP. Po poprawnym połączeniu klienta z danym portem, port z którego adres został otrzymany zostaje zablokowany  na 10 sekund by obsłużyć żądanie klienta. Poprzez wspólne informacje wątków o klientach po autoryzacji jednocześnie z obecnie obsługiwanymi żądaniami klient nie może zablokować kilku portów na raz.
+Początkowo serwer na podstawie podanych w argumentach portów UDP uruchamia wątki dla każdego z nich. Każdy wątek nasłuchuje wspomnianego "knockingu". Jeżeli nastąpi autoryzacja klienta, to poprzez UDP serwer wysyła wolny port TCP. Po poprawnym połączeniu klienta z danym portem, port z którego adres został otrzymany zostaje zablokowany  na 10 sekund, by obsłużyć żądanie klienta. Poprzez wspólne informacje wątków o klientach po autoryzacji jednocześnie z obecnie obsługiwanymi żądaniami klient nie może zablokować kilku portów na raz.
 
 ## Protokół klienta
-Klient na podstawie podanego w agumentach adresu łączy się z serwerem oraz wykonuje "pukanie" na podane porty. Kiedy autoryzacja przbiegnie pomyślnie, łączy się pod uzyskany port przez protokół TCP. Następnym krokiem jest  realizacja żądania klienta, po czym wyświetlenie uzyskanej wiadomości od serwera. Po wykonaniu całej komunikacji z serwerem klient rozłącza się i kończy pracę.
+Klient na podstawie podanego w argumentach adresu łączy się z serwerem oraz wykonuje "pukanie" na podane porty. Kiedy autoryzacja przbiegnie pomyślnie, łączy się pod uzyskany port przez protokół TCP. Następnym krokiem jest  realizacja żądania klienta, po czym wyświetlenie uzyskanej wiadomości od serwera. Po wykonaniu całej komunikacji z serwerem, klient rozłącza się i kończy pracę.
 
 ## Autoryzacja klienta
-Autoryzacja klienta następuje w momencie kiedy w wiadomości nadawanej przez datagramy znajdzie się na początku **symbol '@'**. Wszystkie porty pod które "puka" client śledzą podany symbol oddzielnie więc wiadomość może być  zarówno w jedym pakiecie jak w kilku różnych.
+Autoryzacja klienta następuje w momencie, kiedy w wiadomości nadawanej przez datagramy znajdzie się na początku **symbol '@'**.
 
 
 ## Realizacja żądania klienta
-W następstwie autoryzacji klient wysyła wiadomość do serwera, a ten zwraca ją używając szyfru cezara z przesunięciem o 5 znaków.
+W następstwie autoryzacji, klient wysyła wiadomość do serwera, a ten zwraca ją używając szyfru cezara z przesunięciem o 5 znaków.
 
 ### Odpowiedź od serwera z wykorzystaniem szyfru cezara
 
@@ -58,4 +58,3 @@ W następstwie autoryzacji klient wysyła wiadomość do serwera, a ten zwraca j
 
 #
 > Autor: **Jakub Jóźwiak**
-
